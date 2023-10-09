@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     if (validStatus == true)
                     {
                         Toast.makeText(MainActivity.this, "User login Successfully !", Toast.LENGTH_SHORT).show();
-                        Intent intent1 = new Intent(MainActivity.this, Signup.class);
+                        Intent intent1 = new Intent(MainActivity.this, Home.class);
                         startActivity(intent1);
                     }
                     else {
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         signinbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Signup.class);
+                Intent intent = new Intent(MainActivity.this,Home.class);
                 startActivity(intent);
             }
         });
