@@ -37,12 +37,12 @@ public class Signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         DB = new DBHelper(this);
-        btnsignup = findViewById(R.id.btnsignup);
-        personName = findViewById(R.id.editTextTextPersonName);
-        editTextTextEmailAddress3 = findViewById(R.id.editTextTextEmailAddress3);
-        editTextPhone = findViewById(R.id.editTextPhone);
-        editTextTextPassword2 = findViewById(R.id.editTextTextPassword2);
-        editTextTextPersonName4 = findViewById(R.id.editTextTextPersonName4);
+        btnsignup = findViewById(R.id.usersignupbtn);
+        personName = findViewById(R.id.name);
+        editTextTextEmailAddress3 = findViewById(R.id.email);
+        editTextPhone = findViewById(R.id.mobileNum);
+        editTextTextPassword2 = findViewById(R.id.password);
+        editTextTextPersonName4 = findViewById(R.id.nic);
 
         btnsignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +82,7 @@ public class Signup extends AppCompatActivity {
     }
 
     // implementation to post the vehicle owner data to DB
-    private void postDataToDB(String vnum, String pw, String v_type, String f_type, String chesis_n ){
+    private void postDataToDB(String vnum, String pw, String v_type, String f_type, String chesis_n ) {
         try {
             // url to post the user data
             String url = "http://172.28.1.50:8080/api/User";
@@ -110,95 +110,8 @@ public class Signup extends AppCompatActivity {
             });
             requestQueue = Volley.newRequestQueue(Signup.this);
             requestQueue.add(req);
-        }catch (Exception e){
+        } catch (Exception e) {
         }
     }
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_signup);
-//
-//        editTextTextPersonName = findViewById(R.id.editTextTextPersonName);
-//        editTextTextEmailAddress3 = findViewById(R.id.editTextTextEmailAddress3);
-//        editTextPhone = findViewById(R.id.editTextPhone);
-//        editTextTextPassword2 = findViewById(R.id.editTextTextPassword2);
-//        editTextTextPersonName4 = findViewById(R.id.editTextTextPersonName4);
-//
-//        btnsignup = findViewById(R.id.btnsignup);
-//
-//        userob = new User();
-//
-//        //button dirrection
-//
-//        btn_2signin = findViewById(R.id.btn_2signin);
-//        btn_2signin.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//                startActivity(new Intent(Signup.this, User.class));
-//
-//                ClearControls();
-//            }
-//        });
-//
-//
-//
-//
-//    }
-//
-//    public void Signup(View view) {
-//
-//        rootNode = FirebaseDatabase.getInstance();
-//        db = rootNode.getReference("User");
-//
-//
-//        try {
-//            if(TextUtils.isEmpty(editTextTextPersonName.getText().toString().trim())){
-//                Toast.makeText(getApplicationContext(),"Enter Your Name",Toast.LENGTH_LONG).show();
-//            } else if (TextUtils.isEmpty(editTextTextEmailAddress3.getText().toString().trim())){
-//                Toast.makeText(getApplicationContext(),"Enter Your Email",Toast.LENGTH_LONG).show();
-//            } else if (TextUtils.isEmpty(editTextPhone.getText().toString().trim())){
-//                Toast.makeText(getApplicationContext(),"Enter Your Mobile Number",Toast.LENGTH_LONG).show();
-//            } else if (TextUtils.isEmpty(editTextTextPassword2.getText().toString().trim())){
-//                Toast.makeText(getApplicationContext(),"Enter a Password",Toast.LENGTH_LONG).show();
-//            } else if (TextUtils.isEmpty(editTextTextPersonName4.getText().toString().trim())){
-//                Toast.makeText(getApplicationContext(),"Enter a Password",Toast.LENGTH_LONG).show();
-//            } else {
-//                userob.setName(editTextTextPersonName.getText().toString().trim());
-//                userob.setEmail(editTextTextEmailAddress3.getText().toString().trim());
-//                userob.setMobileNum(editTextPhone.getText().toString().trim());
-//                userob.setPassword(editTextTextPassword2.getText().toString().trim());
-//                userob.setNic(editTextTextPersonName4.getText().toString().trim());
-//                String Nic = editTextTextPersonName4.getText().toString().trim();
-//
-//                db.child(Nic).setValue(userob);
-//
-//                Toast.makeText(getApplicationContext(),"Account Created",Toast.LENGTH_LONG).show();
-//
-//                startActivity(new Intent(Signup.this, MainActivity.class));
-//
-//                ClearControls();
-//
-//            }
-//
-//
-//        } catch (NumberFormatException e) {
-//            Toast.makeText(getApplicationContext(), "Number Format Exception", Toast.LENGTH_LONG).show();
-//        }
-//    }
-//
-//    public void ClearControls() {
-//        editTextTextPersonName.setText("");
-//        editTextTextEmailAddress3.setText("");
-//        editTextPhone.setText("");
-//        editTextTextPassword2.setText("");
-//        editTextTextPersonName4.setText("");
-//        editTextTextPersonName4.setText("");
-//
-//
-//    }
 
 }

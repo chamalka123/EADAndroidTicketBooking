@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView signinbtn;
+    TextView signinbtn, forgot;
     Button userLoginButton;
     EditText nic,password;
     private DBHelper DB;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userLoginButton = findViewById(R.id.btnsignin);
+        userLoginButton = findViewById(R.id.LoginBtn);
         nic = findViewById(R.id.editTextTextEmailAddress2);
         password = findViewById(R.id.editTextTextPassword);
         DB = new DBHelper(this);
@@ -56,12 +56,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        signinbtn = findViewById(R.id.btnsignin);
+        forgot = findViewById(R.id.logss);
+
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,Home.class);
+                startActivity(intent);
+            }
+        });
+
+        signinbtn = findViewById(R.id.signup);
 
         signinbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Home.class);
+                Intent intent = new Intent(MainActivity.this,Signup.class);
                 startActivity(intent);
             }
         });
