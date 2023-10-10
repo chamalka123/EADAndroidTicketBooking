@@ -15,4 +15,9 @@
     <string name="Home_button4">My Account</string>
     <string name="Home_button5">Manage</string>
     <string name="Home_button6">Summary</string>
+    <string name="rervationDate">Reservation Date</string>
+    <string name="passengerName">Your Name</string>
+    <string name="phonenNumebr">Phone Number</string>
+    <string name="destination">Destination</string>
+    <string name="reservationTime">Time</string>
 </resources>

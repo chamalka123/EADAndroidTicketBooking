@@ -55,7 +55,7 @@ public class Home extends AppCompatActivity {
         btnmnage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Home.this, UserProfile.class));
+                startActivity(new Intent(Home.this, AddReservations.class));
             }
         });
 
