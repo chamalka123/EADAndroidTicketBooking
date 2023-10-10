@@ -20,4 +20,6 @@
     <string name="phonenNumebr">Phone Number</string>
     <string name="destination">Destination</string>
     <string name="reservationTime">Time</string>
+    <string name="loginNic">Enter NIC</string>
+    <string name="loginPaasword">Enter Password</string>
 </resources>
