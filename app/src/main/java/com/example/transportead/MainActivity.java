@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView signinbtn;
+    TextView signinbtn, forgot;
     Button userLoginButton;
     EditText nic,password;
     private DBHelper DB;
@@ -53,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        forgot = findViewById(R.id.logss);
+
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,Home.class);
+                startActivity(intent);
             }
         });
 

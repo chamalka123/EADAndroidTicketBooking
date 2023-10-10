@@ -15,8 +15,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Booking"
-        android:textColor="#B61F15"
+        android:text="Add Reseravtions"
+        android:textColor="#444444"
         android:textSize="35dp"
         android:textStyle="bold"
         android:letterSpacing="0.03"/>
@@ -30,7 +30,7 @@
         android:background="@drawable/forget"
         android:inputType="date"
         android:paddingLeft="20dp"
-        android:textColor="#95120a"
+        android:textColor="#444444"
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -42,7 +42,7 @@
         android:background="@drawable/forget"
         android:hint="@string/passengerName"
         android:paddingLeft="20dp"
-        android:textColor="#95120a"
+        android:textColor="#444444"
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -56,7 +56,7 @@
         android:inputType="number"
         android:maxLength="10"
         android:paddingLeft="20dp"
-        android:textColor="#95120a"
+        android:textColor="#444444"
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -69,7 +69,7 @@
         android:background="@drawable/forget"
         android:hint="@string/destination"
         android:paddingLeft="20dp"
-        android:textColor="#95120a"
+        android:textColor="#444444"
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -81,7 +81,7 @@
         android:background="@drawable/forget"
         android:hint="@string/reservationTime"
         android:paddingLeft="20dp"
-        android:textColor="#95120a"
+        android:textColor="#444444"
         android:textSize="18dp"
         android:textStyle="bold" />
 
