@@ -2,20 +2,33 @@ package com.example.transportead;
 
 public class Reservations {
 
+    private String ReferenceId ;
     private String ReservationDate ;
     private String PassengerName ;
     private String PhoneNumber  ;
     private String Destination ;
+
+    private Boolean IsCancelled;
+
+
     private String Time ;
 
     public Reservations(){}
 
-    public Reservations(String reservationDate, String passengerName, String phoneNumber, String destination, String time) {
+    public Reservations(String referenceId, String reservationDate, String passengerName, String phoneNumber, String destination, String time, String isCancelled) {
+        ReferenceId = referenceId;
         ReservationDate = reservationDate;
         PassengerName = passengerName;
         PhoneNumber = phoneNumber;
         Destination = destination;
         Time = time;
+        IsCancelled = isCancelled.isEmpty();
+
+    }
+
+
+    public String getReferenceId() {
+        return ReferenceId;
     }
 
     public String getReservationDate() {
@@ -38,6 +51,16 @@ public class Reservations {
         return PhoneNumber;
     }
 
+    public Boolean getCancelled() {
+        return IsCancelled;
+    }
+
+
+    //setters
+    public void setReferenceId(String referenceId) {
+        ReferenceId = referenceId;
+    }
+
     public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
     }
@@ -56,5 +79,9 @@ public class Reservations {
 
     public void setTime(String time) {
         Time = time;
+    }
+
+    public void setCancelled(Boolean cancelled) {
+        IsCancelled = cancelled;
     }
 }

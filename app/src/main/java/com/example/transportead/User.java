@@ -8,15 +8,18 @@ public class User {
     private String password;
     private String nic;
 
+    private String isActive;
+
     public User() {
     }
 
-    public User(String name, String email, String mobileNum, String password, String nic) {
+    public User(String name, String email, String mobileNum, String password, String nic, String isActive) {
         this.name = name;
         this.email = email;
         this.mobileNum = mobileNum;
         this.password = password;
         this.nic = nic;
+        this.isActive = isActive;
     }
 
 
@@ -42,6 +45,8 @@ public class User {
         return nic;
     }
 
+    public  String getIsActive ()  {return  isActive;}
+
 
     //setters
 
@@ -65,6 +70,6 @@ public class User {
         this.nic = nic;
     }
 
-
+    public void setIsActive(String isActive) {this.isActive = isActive; }
 
 }

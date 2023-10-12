@@ -9,32 +9,23 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddReservations extends AppCompatActivity {
+    private static final String BASE_URL = "http://localhost:5253/"; // Use the correct base URL from your launchSettings.json
 
     EditText ReservationDate, PassengerName, PhoneNumber, Destination, Time;
     Button btnaddReservations;
-
-    private DBHelper DB;
-
-    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservations);
-        DB = new DBHelper(this);
+
         btnaddReservations = findViewById(R.id.userregibtn);
         ReservationDate = findViewById(R.id.ReservationDate);
         PassengerName = findViewById(R.id.PassengerName);
@@ -45,66 +36,58 @@ public class AddReservations extends AppCompatActivity {
         btnaddReservations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String reservationDate = ReservationDate.getText().toString();
+                String passengerName = PassengerName.getText().toString();
+                String phoneNumber = PhoneNumber.getText().toString();
+                String destination = Destination.getText().toString();
+                String time = Time.getText().toString();
 
-                String vnum, pw, v_type, f_type, chesis_n;
-                vnum = ReservationDate.getText().toString();
-                pw = Time.getText().toString();
-                v_type = PassengerName.getText().toString();
-                f_type = PhoneNumber.getText().toString();
-                chesis_n = Destination.getText().toString();
-
-                if (vnum.equals("") || pw.equals("") || v_type.equals("") || f_type.equals("") || chesis_n.equals("")) {
-                    Toast.makeText(AddReservations.this, "You should fill all fields !!", Toast.LENGTH_SHORT).show();
+                if (reservationDate.isEmpty() || passengerName.isEmpty() || phoneNumber.isEmpty() || destination.isEmpty() || time.isEmpty()) {
+                    Toast.makeText(AddReservations.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Boolean checkUser = DB.checkusername(vnum);
-                    if (checkUser == false) {
-                        postDataToDB(vnum, pw, v_type, f_type, chesis_n);
-                        Boolean insertSuccess = DB.insertData(vnum, pw);
-                        if (insertSuccess == true) {
-                            Toast.makeText(AddReservations.this, "Booking Registered Successfully !", Toast.LENGTH_SHORT).show();
-                            Intent intent1 = new Intent(AddReservations.this, Home.class);
-                            startActivity(intent1);
-                        } else {
-                            Toast.makeText(AddReservations.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
+                    // Create a Retrofit instance
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(BASE_URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    // Create an instance of the API service
+                    ReservationsApi reservationsApi = retrofit.create(ReservationsApi.class);
+
+                    // Create a Reservations object with the data you want to insert
+                    Reservations reservations = new Reservations();
+                    reservations.setReservationDate(reservationDate);
+                    reservations.setPassengerName(passengerName);
+                    reservations.setPhoneNumber(phoneNumber);
+                    reservations.setDestination(destination);
+                    reservations.setTime(time);
+                    reservations.setCancelled(false);
+
+                    // Send the POST request
+                    Call<Reservations> call = reservationsApi.createReservation(reservations);
+
+                    call.enqueue(new Callback<Reservations>() {
+                        @Override
+                        public void onResponse(Call<Reservations> call, Response<Reservations> response) {
+                            if (response.isSuccessful()) {
+                                Reservations createdReservation = response.body();
+                                // Handle the response, such as displaying reservation data
+                                Toast.makeText(AddReservations.this, "Reservation created successfully.", Toast.LENGTH_SHORT).show();
+                                // You can navigate to another activity here if needed
+                            } else {
+                                // Handle errors, such as displaying an error message
+                                Toast.makeText(AddReservations.this, "Failed to create reservation. Please try again.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    } else {
-                        Toast.makeText(AddReservations.this, "User already registered !", Toast.LENGTH_SHORT).show();
-                    }
+
+                        @Override
+                        public void onFailure(Call<Reservations> call, Throwable t) {
+                            // Handle network failures
+                            Toast.makeText(AddReservations.this, "Network request failed. Please check your connection.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
-    }
-
-    // implementation to post the vehicle owner data to DB
-    private void postDataToDB(String vnum, String pw, String v_type, String f_type, String chesis_n) {
-        try {
-            // url to post the user data
-            String url = "http://172.28.1.50:8080/api/User";
-            HashMap<String, String> params = new HashMap<String, String>();
-            params.put("ReservationDate", vnum);
-            params.put("Time", pw);
-            params.put("PassengerName", v_type);
-            params.put("PhoneNumber", f_type);
-            params.put("Destination", chesis_n);
-            JsonObjectRequest req = new JsonObjectRequest(url, new JSONObject(params),
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                VolleyLog.v("Response:%n %s", response.toString(4));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.e("Error: ", error.getMessage());
-                }
-            });
-            requestQueue = Volley.newRequestQueue(AddReservations.this);
-            requestQueue.add(req);
-        } catch (Exception e) {
-        }
     }
 }
